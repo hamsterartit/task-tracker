@@ -1,6 +1,6 @@
-import {Plus, Search, LayoutList, CheckCircle2, Circle, Moon, Sun, Check, Save, Edit2, Trash2} from 'lucide-react';
+import { Search, LayoutList, CheckCircle2, Circle, Moon, Sun, Check, Save, Edit2, Trash2} from 'lucide-react';
 import {Button} from './components/Button';
-import {Input} from './components/Input';
+import {AddTaskForm} from "./components/AddTaskForm.tsx";
 
 export default function App() {
 
@@ -50,32 +50,7 @@ export default function App() {
                 </div>
 
                 {/* Add Task Form */}
-                <div
-                    className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm mb-8">
-                    <form className="space-y-4">
-                        <div className="flex gap-2">
-                            <Input
-                                placeholder="What needs to be done?"
-                                className="text-lg"
-                            />
-                            <Button type="submit" className="flex-shrink-0">
-                                <Plus size={20} className="mr-2"/> Add
-                            </Button>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <span
-                                className="text-xs font-medium text-slate-400 uppercase tracking-wider">Priority:</span>
-                            <div className="flex gap-2">
-                                <button
-                                    type="button"
-                                    className='px-3 py-1 text-xs font-semibold rounded-full border transition-all'
-                                >
-                                    test
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                <AddTaskForm/>
 
                 {/* Search & Filter */}
                 <div className="space-y-4 mb-6">
