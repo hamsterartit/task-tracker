@@ -1,6 +1,7 @@
-import { Search, LayoutList, CheckCircle2, Circle, Moon, Sun, Check, Save, Edit2, Trash2} from 'lucide-react';
+import {Search, LayoutList, Moon, Sun, Check, Save, Edit2, Trash2} from 'lucide-react';
 import {Button} from './components/Button';
 import {AddTaskForm} from "./components/AddTaskForm.tsx";
+import {StatisticsView} from "./components/StatisticsView.tsx";
 
 export default function App() {
 
@@ -31,23 +32,7 @@ export default function App() {
                 </header>
 
                 {/* Stats Grid */}
-                <div className="grid grid-cols-3 gap-4 mb-8">
-                    {[
-                        {label: 'Total', icon: LayoutList, color: 'text-indigo-600'},
-                        {label: 'Active', icon: Circle, color: 'text-amber-600'},
-                        {label: 'Done', icon: CheckCircle2, color: 'text-emerald-600'},
-                    ].map((stat) => (
-                        <div key={stat.label}
-                             className="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
-                            <div className="flex items-center gap-2 mb-1">
-                                <stat.icon size={14} className={stat.color}/>
-                                <span
-                                    className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{stat.label}</span>
-                            </div>
-                            <p className="text-2xl font-bold text-slate-900 dark:text-white">test</p>
-                        </div>
-                    ))}
-                </div>
+                <StatisticsView/>
 
                 {/* Add Task Form */}
                 <AddTaskForm/>

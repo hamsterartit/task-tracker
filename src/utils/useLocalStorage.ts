@@ -1,18 +1,17 @@
 import type {TaskItem} from "./types";
+import {useState} from "react";
 
 export const useLocalStorage = () => {
-    const storage = localStorage.getItem("task-tracker");
+    const [tasks, setTasks] = useState<TaskItem[]>(() => {
+        const saved = localStorage.getItem('task-tracker');
+        return saved ? JSON.parse(saved) : [];
+    });
 
     const add = (task: TaskItem) => {
-        if (!storage) {
-            localStorage.setItem("task-tracker", JSON.stringify([task]));
-        } else {
-            const parsedStorage = JSON.parse(storage);
-            const updatedStorage: TaskItem[] = [...parsedStorage, task];
-            const stringifiedStorage = JSON.stringify(updatedStorage);
-            localStorage.setItem("task-tracker", stringifiedStorage);
-        }
+        const updated = [...tasks, task];
+        setTasks(updated);
+        localStorage.setItem("task-tracker", JSON.stringify(updated));
     }
 
-    return {add};
+    return {tasks, add};
 }

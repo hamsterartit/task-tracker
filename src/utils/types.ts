@@ -1,3 +1,6 @@
+import * as react from "react";
+import type {LucideProps} from "lucide-react";
+
 export interface TaskItem {
     description: string;
     priority: string;
@@ -11,4 +14,15 @@ export interface PriorityOption {
     label: string;
     value: Priority;
     level: number;
+}
+
+type Icon = react.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & react.RefAttributes<SVGSVGElement>>;
+
+export type Statistics = 'total' | 'completed' | 'active';
+
+export interface StatisticsOption {
+    label: string;
+    icon: Icon;
+    color: string;
+    type: Statistics;
 }
