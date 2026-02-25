@@ -20,5 +20,15 @@ export const useLocalStorage = () => {
         setTasks(tasks.filter((task) => task.id !== id));
     }
 
-    return {tasks, add, remove};
+    const update = (id: string, description: string) => {
+        setTasks(tasks.map((task) => {
+            if (task.id === id) {
+                task.description = description;
+            }
+            return task;
+        }));
+
+    }
+
+    return {tasks, add, remove, update};
 }

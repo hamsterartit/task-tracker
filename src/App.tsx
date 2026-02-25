@@ -7,7 +7,7 @@ import {TaskList} from "./components/TaskList.tsx";
 import {EmptyView} from "./components/EmptyView.tsx";
 
 export default function App() {
-    const {tasks, add, remove} = useLocalStorage();
+    const {tasks, add, remove, update} = useLocalStorage();
     const hasTasks = tasks.length > 0;
 
 
@@ -77,7 +77,7 @@ export default function App() {
                             </div>
                         </div>
 
-                        <TaskList tasks={tasks} remove={remove}/>
+                        <TaskList tasks={tasks} remove={remove} update={update}/>
                     </>
 
                 )}
