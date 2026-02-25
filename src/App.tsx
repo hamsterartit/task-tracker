@@ -35,10 +35,10 @@ export default function App() {
                 </header>
 
                 {/* Stats Grid */}
-                <StatisticsView/>
+                <StatisticsView tasks={tasks}/>
 
                 {/* Add Task Form */}
-                <AddTaskForm/>
+                <AddTaskForm addTask={add}/>
 
                 {/* Search & Filter */}
                 <div className="space-y-4 mb-6">
@@ -76,8 +76,8 @@ export default function App() {
 
                 {/* Task List */}
                 <div className="space-y-3">
-                    {tasks && <TaskList tasks={tasks}/>}
-                    {!tasks && (
+                    {tasks.length > 0 && <TaskList tasks={tasks}/>}
+                    {tasks.length === 0 && (
                         <div className="text-center py-12">
                             <div
                                 className="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400">

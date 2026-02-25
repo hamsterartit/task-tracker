@@ -1,12 +1,13 @@
-
-import { STATISTICS_LIST} from "../utils/constants.ts";
-import {useLocalStorage} from "../utils/useLocalStorage.ts";
-
+import {STATISTICS_LIST} from "../utils/constants.ts";
+import type {TaskItem} from "../utils/types.ts";
 
 
-export const StatisticsView = () => {
-    const {tasks} = useLocalStorage();
+interface StatisticsViewProps {
+    tasks: TaskItem[];
+}
 
+
+export const StatisticsView = ({tasks}: StatisticsViewProps) => {
     const statistics = {
         total: tasks.length,
         completed: tasks.filter((task) => task.completed).length,

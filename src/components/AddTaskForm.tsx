@@ -1,12 +1,14 @@
 import {type BaseSyntheticEvent, useState} from "react";
 import type {Priority, TaskItem} from "../utils/types";
-import {useLocalStorage} from "../utils/useLocalStorage";
 import {AddTaskView} from "./AddTaskView";
 
-export const AddTaskForm = () => {
+interface AddTaskFormProps {
+    addTask: (task: TaskItem) => void;
+}
+
+export const AddTaskForm = ({addTask}: AddTaskFormProps) => {
     const [inputValue, setInputValue] = useState("");
     const [priorityValue, setPriorityValue] = useState<Priority>("low");
-    const {add} = useLocalStorage();
 
     const handleSubmit = (event: BaseSyntheticEvent<SubmitEvent>) => {
         event.preventDefault();
@@ -18,7 +20,7 @@ export const AddTaskForm = () => {
             completed: false,
         }
 
-        add(task);
+        addTask(task);
 
         setInputValue("");
     }
