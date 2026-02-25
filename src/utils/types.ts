@@ -2,6 +2,7 @@ import * as react from "react";
 import type {LucideProps} from "lucide-react";
 
 export interface TaskItem {
+    id: string;
     description: string;
     priority: string;
     date: number;

@@ -16,5 +16,9 @@ export const useLocalStorage = () => {
         setTasks(updated);
     }
 
-    return {tasks, add};
+    const remove = (id: string) => {
+        setTasks(tasks.filter((task) => task.id !== id));
+    }
+
+    return {tasks, add, remove};
 }

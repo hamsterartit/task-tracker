@@ -14,6 +14,7 @@ export const AddTaskForm = ({addTask}: AddTaskFormProps) => {
         event.preventDefault();
 
         const task: TaskItem = {
+            id: crypto.randomUUID(),
             description: inputValue,
             priority: priorityValue,
             date: Date.now(),

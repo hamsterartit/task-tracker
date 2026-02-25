@@ -4,9 +4,10 @@ import type {TaskItem} from "../utils/types.ts";
 
 interface TaskItemViewProps {
     task: TaskItem;
+    removeTask: (id:string) => void;
 }
 
-export const TaskItemView = ({task}: TaskItemViewProps) => {
+export const TaskItemView = ({task, removeTask}: TaskItemViewProps) => {
 
     const {description, priority, date} = task;
 
@@ -42,7 +43,7 @@ export const TaskItemView = ({task}: TaskItemViewProps) => {
                 <Button variant="ghost" size="sm" className="text-slate-400 hover:text-indigo-500">
                     <Edit2 size={18}/>
                 </Button>
-                <Button variant="ghost" size="sm" className="text-slate-400 hover:text-rose-500">
+                <Button variant="ghost" size="sm" className="text-slate-400 hover:text-rose-500" onClick={() => removeTask(task.id)}>
                     <Trash2 size={18}/>
                 </Button>
             </div>
