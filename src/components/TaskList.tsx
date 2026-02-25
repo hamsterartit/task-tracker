@@ -7,9 +7,13 @@ interface TaskListProps {
 
 export const TaskList = ({tasks}: TaskListProps) => {
     return (
-       <>
-           {tasks.map((task: TaskItem) => (<TaskItemView key={task.date} task={task}/>))}
-       </>
+        <div className="space-y-3">
+            {tasks.map((task: TaskItem) => (
+
+                    <TaskItemView key={task.date} task={task}/>
+                )
+            )}
+        </div>
 
     )
 }
