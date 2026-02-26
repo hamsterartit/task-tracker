@@ -23,7 +23,7 @@ export const useLocalStorage = () => {
     const update = (id: string, description: string) => {
         setTasks(tasks.map((task) => {
             if (task.id === id) {
-                task.description = description;
+                return {...task, description: description};
             }
             return task;
         }));
@@ -32,7 +32,7 @@ export const useLocalStorage = () => {
     const toggle = (id: string) => {
         setTasks(tasks.map((task) => {
             if (task.id === id) {
-                task.completed = !task.completed;
+                return {...task, completed: !task.completed};
             }
             return task;
         }));

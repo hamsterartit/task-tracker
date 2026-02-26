@@ -13,8 +13,8 @@ interface AddTaskViewProps {
     priority: Priority;
 }
 
-export const AddTaskView = (Props: AddTaskViewProps) => {
-    const {onSubmit, onInputChange, onRadioChange, inputValue, priority} = Props;
+export const AddTaskView = (props: AddTaskViewProps) => {
+    const {onSubmit, onInputChange, onRadioChange, inputValue, priority} = props;
 
     return (
         <div
