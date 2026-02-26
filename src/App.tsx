@@ -10,7 +10,7 @@ import {useMemo, useState} from "react";
 import type {Filter} from "./utils/types.ts";
 
 export default function App() {
-    const {tasks, add, remove, update} = useLocalStorage();
+    const {tasks, add, remove, update, toggle} = useLocalStorage();
     const hasTasks = tasks.length > 0;
     const [searchQuery, setSearchQuery] = useState("");
     const [filter, setFilter] = useState<Filter>("all");
@@ -60,7 +60,7 @@ export default function App() {
                     <>
                         <FilterForm onSearch={setSearchQuery} onFilterChange={setFilter}/>
 
-                        <TaskList tasks={filteredTasks} remove={remove} update={update}/>
+                        <TaskList tasks={filteredTasks} remove={remove} update={update} toggle={toggle}/>
                     </>
 
                 )}

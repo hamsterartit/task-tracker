@@ -27,8 +27,16 @@ export const useLocalStorage = () => {
             }
             return task;
         }));
-
     }
 
-    return {tasks, add, remove, update};
+    const toggle = (id: string) => {
+        setTasks(tasks.map((task) => {
+            if (task.id === id) {
+                task.completed = !task.completed;
+            }
+            return task;
+        }));
+    }
+
+    return {tasks, add, remove, update, toggle};
 }

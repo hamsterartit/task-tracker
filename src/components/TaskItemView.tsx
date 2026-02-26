@@ -7,11 +7,12 @@ interface TaskItemViewProps {
     task: TaskItem;
     removeTask: (id: string) => void;
     updateTask: (id: string, description: string) => void;
+    toggleTask: (id: string) => void;
 }
 
-export const TaskItemView = ({task, removeTask, updateTask}: TaskItemViewProps) => {
+export const TaskItemView = ({task, removeTask, updateTask, toggleTask}: TaskItemViewProps) => {
 
-    const {description, priority, date, id} = task;
+    const {description, priority, date, id, completed} = task;
 
     const rawDate = new Date(date);
     const formattedDate = rawDate.toLocaleDateString();
@@ -27,8 +28,9 @@ export const TaskItemView = ({task, removeTask, updateTask}: TaskItemViewProps) 
     return (
 
         <div
-            className='group flex items-center gap-4 p-4 rounded-xl border bg-white dark:bg-slate-900 transition-all'>
-            <input type="checkbox" name="tasks"/>
+            className={`group flex items-center gap-4 p-4 rounded-xl border bg-white dark:bg-slate-900 transition-all
+             ${completed ?  'border-slate-100 dark:border-slate-800 opacity-75' : 'border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md'}`}>
+            <input type="checkbox" name="tasks" checked={completed} onChange={() => toggleTask(id)}/>
 
             <div className="flex-grow min-w-0">
 
@@ -45,7 +47,9 @@ export const TaskItemView = ({task, removeTask, updateTask}: TaskItemViewProps) 
                         />
                     )}
                     {!isEdit && (
-                        <span className='text-base truncate transition-all'>{description}</span>
+                        <span className={`text-base truncate transition-all ${
+                            completed ? 'text-slate-400 line-through' : 'text-slate-700 dark:text-slate-200 font-medium'
+                        }`}>{description}</span>
                     )}
                     <div className="flex items-center gap-2 mt-1">
                             <span
