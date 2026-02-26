@@ -1,11 +1,17 @@
-import type {FilterOption, PriorityOption, StatisticsOption} from "./types.ts";
+import type {FilterOption, Priority, PriorityOption, SortOption, StatisticsOption} from "./types.ts";
 import {CheckCircle2, Circle, LayoutList} from "lucide-react";
 
 export const PRIORITY_LIST: PriorityOption[] = [
-    { label: 'Low', value: 'low', level: 0 },
-    { label: 'Medium', value: 'medium', level: 1 },
-    { label: 'High', value: 'high', level: 2 },
+    { label: 'Low', value: 'low' },
+    { label: 'Medium', value: 'medium' },
+    { label: 'High', value: 'high' },
 ];
+
+export const PRIORITY_ORDER: Record<Priority, number> = {
+    'low': 0,
+    'medium': 1,
+    'high': 2
+}
 
 export const STATISTICS_LIST: StatisticsOption[] = [
     {label: 'Total', icon: LayoutList, color: 'text-indigo-600', type: 'total'},
@@ -17,4 +23,11 @@ export const FILTERS_LIST: FilterOption[] = [
     {label: 'All', value: 'all'},
     {label: 'Active', value: 'active'},
     {label: 'Completed', value: 'completed'},
+]
+
+export const SORT_LIST: SortOption[] = [
+    {label: 'By date (newest)', value: 'newest'},
+    {label: 'By date (oldest)', value: 'oldest'},
+    {label: 'By priority (inc)', value: 'inc'},
+    {label: 'By priority (dec)', value: 'dec'},
 ]

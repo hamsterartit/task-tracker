@@ -4,7 +4,7 @@ import type {LucideProps} from "lucide-react";
 export interface TaskItem {
     id: string;
     description: string;
-    priority: string;
+    priority: Priority;
     date: number;
     completed: boolean;
 }
@@ -14,7 +14,6 @@ export type Priority = 'low' | 'medium' | 'high';
 export interface PriorityOption {
     label: string;
     value: Priority;
-    level: number;
 }
 
 type Icon = react.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & react.RefAttributes<SVGSVGElement>>;
@@ -33,4 +32,11 @@ export type Filter = 'all' | 'active' | 'completed';
 export interface FilterOption {
     label: string;
     value: Filter;
+}
+
+export type Sort = 'newest' | 'oldest' | 'inc' | 'dec';
+
+export interface SortOption {
+    label: string;
+    value: Sort;
 }

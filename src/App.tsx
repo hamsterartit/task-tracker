@@ -1,4 +1,4 @@
-import {Search, LayoutList, Moon, Sun} from 'lucide-react';
+import { LayoutList, Moon, Sun} from 'lucide-react';
 import {Button} from './components/Button';
 import {AddTaskForm} from "./components/AddTaskForm.tsx";
 import {StatisticsView} from "./components/StatisticsView.tsx";
@@ -7,21 +7,36 @@ import {TaskList} from "./components/TaskList.tsx";
 import {EmptyView} from "./components/EmptyView.tsx";
 import {FilterForm} from "./components/FilterForm.tsx";
 import {useMemo, useState} from "react";
-import type {Filter} from "./utils/types.ts";
+import type {Filter,  Sort} from "./utils/types.ts";
+import { PRIORITY_ORDER} from "./utils/constants.ts";
 
 export default function App() {
     const {tasks, add, remove, update, toggle} = useLocalStorage();
     const hasTasks = tasks.length > 0;
     const [searchQuery, setSearchQuery] = useState("");
     const [filter, setFilter] = useState<Filter>("all");
+    const [sort, setSort] = useState<Sort>("newest");
 
     const filteredTasks = useMemo(() => {
-        return tasks.filter(task => {
+        const rawFiltered = tasks.filter(task => {
             const matchSearch = task.description.toLowerCase().includes(searchQuery.toLowerCase());
             const matchFilter = filter === 'all' ? true : filter === 'completed' ? task.completed : !task.completed;
             return matchFilter && matchSearch;
-        })
-    }, [tasks, searchQuery, filter]);
+        });
+
+        switch (sort) {
+            case "newest":
+                return rawFiltered.sort((a, b) => b.date - a.date);
+            case "oldest":
+                return rawFiltered.sort((a, b) => a.date - b.date);
+            case "inc":
+                return rawFiltered.sort((a, b) => PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority]);
+            case "dec":
+                return rawFiltered.sort((a, b) => PRIORITY_ORDER[b.priority] - PRIORITY_ORDER[a.priority]);
+            default:
+                return rawFiltered.sort((a, b) => b.date - a.date);
+        }
+    }, [tasks, searchQuery, filter, sort]);
 
 
 
@@ -58,7 +73,7 @@ export default function App() {
 
                 {hasTasks && (
                     <>
-                        <FilterForm onSearch={setSearchQuery} onFilterChange={setFilter}/>
+                        <FilterForm onSearchChange={setSearchQuery} onFilterChange={setFilter} filterValue={filter} onSortChange={setSort}/>
 
                         <TaskList tasks={filteredTasks} remove={remove} update={update} toggle={toggle}/>
                     </>

@@ -1,13 +1,15 @@
 import {Search} from "lucide-react";
-import {FILTERS_LIST} from "../utils/constants.ts";
-import type {Filter} from "../utils/types.ts";
+import {FILTERS_LIST, SORT_LIST} from "../utils/constants.ts";
+import type {Filter, Sort} from "../utils/types.ts";
 
 interface FilterFormProps {
-    onSearch: (value: string) => void;
+    onSearchChange: (value: string) => void;
     onFilterChange: (value: Filter) => void;
+    onSortChange: (value: Sort) => void;
+    filterValue: Filter;
 }
 
-export const FilterForm = ({onSearch, onFilterChange}: FilterFormProps) => {
+export const FilterForm = ({onSearchChange, onFilterChange,onSortChange, filterValue}: FilterFormProps) => {
     return (
         <div className="space-y-4 mb-6">
             <div className="relative">
@@ -15,7 +17,7 @@ export const FilterForm = ({onSearch, onFilterChange}: FilterFormProps) => {
                 <input
                     type="text"
                     placeholder="Search tasks..."
-                    onChange={(event) => onSearch(event.target.value)}
+                    onChange={(event) => onSearchChange(event.target.value)}
                     className="w-full pl-10 pr-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-slate-700 dark:text-slate-200"
                 />
             </div>
@@ -25,6 +27,7 @@ export const FilterForm = ({onSearch, onFilterChange}: FilterFormProps) => {
                     {FILTERS_LIST.map((item) => (
                         <label key={item.value} htmlFor={item.value} className="flex items-center gap-1">
                             <input type="radio" value={item.value} id={item.value} name="filter"
+                                   checked={item.value === filterValue}
                                     onChange={() => onFilterChange(item.value)}
                             />
                             <span>{item.label}</span>
@@ -37,9 +40,11 @@ export const FilterForm = ({onSearch, onFilterChange}: FilterFormProps) => {
                                 className="text-xs font-medium text-slate-400 uppercase tracking-wider">Sort by:</span>
                     <select
                         className="bg-transparent text-sm font-medium text-slate-600 dark:text-slate-300 focus:outline-none cursor-pointer"
+                        onChange={(event) => onSortChange(event.target.value as Sort)}
                     >
-                        <option value="date">Date Created</option>
-                        <option value="priority">Priority</option>
+                        {SORT_LIST.map((item) => (
+                            <option key={item.value} value={item.value}>{item.label}</option>
+                        ))}
                     </select>
                 </div>
             </div>
