@@ -1,7 +1,7 @@
 import * as react from "react";
 import type {LucideProps} from "lucide-react";
 
-export interface TaskItem {
+export interface Task {
     id: string;
     description: string;
     priority: Priority;

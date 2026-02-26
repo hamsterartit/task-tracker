@@ -1,9 +1,9 @@
 import {type BaseSyntheticEvent, useState} from "react";
-import type {Priority, TaskItem} from "../utils/types";
+import type {Priority, Task} from "../utils/types";
 import {AddTaskView} from "./AddTaskView";
 
 interface AddTaskFormProps {
-    addTask: (task: TaskItem) => void;
+    addTask: (task: Task) => void;
 }
 
 export const AddTaskForm = ({addTask}: AddTaskFormProps) => {
@@ -13,7 +13,7 @@ export const AddTaskForm = ({addTask}: AddTaskFormProps) => {
     const handleSubmit = (event: BaseSyntheticEvent<SubmitEvent>) => {
         event.preventDefault();
 
-        const task: TaskItem = {
+        const task: Task = {
             id: crypto.randomUUID(),
             description: inputValue,
             priority: priorityValue,

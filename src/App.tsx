@@ -1,14 +1,14 @@
-import { LayoutList, Moon, Sun} from 'lucide-react';
+import {LayoutList, Moon, Sun} from 'lucide-react';
 import {Button} from './components/Button';
 import {AddTaskForm} from "./components/AddTaskForm";
 import {StatisticsView} from "./components/StatisticsView";
 import {useLocalStorage} from "./utils/useLocalStorage";
-import {TaskList} from "./components/TaskList";
 import {EmptyView} from "./components/EmptyView";
-import {FilterForm} from "./components/FilterForm";
-import {useMemo, useState} from "react";
+import {FilterView} from "./components/FilterView";
+import {useState} from "react";
 import type {Filter, Sort} from "./utils/types";
-import { PRIORITY_ORDER} from "./utils/constants";
+import {useFilteredTasks} from "./utils/useFilteredTasks";
+import {TaskList} from "./components/TaskList";
 
 export default function App() {
     const {tasks, add, remove, update, toggle} = useLocalStorage();
@@ -16,26 +16,7 @@ export default function App() {
     const [filter, setFilter] = useState<Filter>("all");
     const [sort, setSort] = useState<Sort>("newest");
 
-    const filteredTasks = useMemo(() => {
-        const rawFiltered = tasks.filter(task => {
-            const matchSearch = task.description.toLowerCase().includes(searchQuery.toLowerCase());
-            const matchFilter = filter === 'all' ? true : filter === 'completed' ? task.completed : !task.completed;
-            return matchFilter && matchSearch;
-        });
-
-        switch (sort) {
-            case "newest":
-                return rawFiltered.sort((a, b) => b.date - a.date);
-            case "oldest":
-                return rawFiltered.sort((a, b) => a.date - b.date);
-            case "inc":
-                return rawFiltered.sort((a, b) => PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority]);
-            case "dec":
-                return rawFiltered.sort((a, b) => PRIORITY_ORDER[b.priority] - PRIORITY_ORDER[a.priority]);
-            default:
-                return rawFiltered.sort((a, b) => b.date - a.date);
-        }
-    }, [tasks, searchQuery, filter, sort]);
+    const filteredTasks = useFilteredTasks(tasks, searchQuery, filter, sort);
 
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300 font-sans">
@@ -65,13 +46,14 @@ export default function App() {
 
                 <AddTaskForm addTask={add}/>
 
+                {tasks.length > 0 && (
+                    <FilterView onSearchChange={setSearchQuery} onFilterChange={setFilter} filterValue={filter}
+                                onSortChange={setSort}/>
+
+                )}
+
                 {filteredTasks.length > 0 && (
-                    <>
-                        <FilterForm onSearchChange={setSearchQuery} onFilterChange={setFilter} filterValue={filter} onSortChange={setSort}/>
-
-                        <TaskList tasks={filteredTasks} remove={remove} update={update} toggle={toggle}/>
-                    </>
-
+                    <TaskList tasks={filteredTasks} remove={remove} update={update} toggle={toggle}/>
                 )}
 
 

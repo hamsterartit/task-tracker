@@ -1,8 +1,8 @@
-import type {TaskItem} from "../utils/types";
-import {TaskItemView} from "./TaskItemView";
+import type {Task} from "../utils/types";
+import {TaskItem} from "./TaskItem";
 
 interface TaskListProps {
-    tasks: TaskItem[];
+    tasks: Task[];
     remove: (id: string) => void;
     update: (id: string, description: string) => void;
     toggle: (id: string) => void;
@@ -11,12 +11,15 @@ interface TaskListProps {
 export const TaskList = ({tasks, remove, update, toggle}: TaskListProps) => {
     return (
         <div className="space-y-3">
-            {tasks.map((task: TaskItem) => (
-
-                    <TaskItemView key={task.id} task={task} removeTask={remove} updateTask={update} toggleTask={toggle}/>
-                )
-            )}
+            {tasks.map((task) => (
+                <TaskItem
+                    key={task.id}
+                    task={task}
+                    remove={remove}
+                    update={update}
+                    toggle={toggle}
+                />
+            ))}
         </div>
-
-    )
-}
+    );
+};

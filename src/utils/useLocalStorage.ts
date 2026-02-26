@@ -1,8 +1,8 @@
-import type {TaskItem} from "./types";
+import type {Task} from "./types";
 import {useEffect, useState} from "react";
 
 export const useLocalStorage = () => {
-    const [tasks, setTasks] = useState<TaskItem[]>(() => {
+    const [tasks, setTasks] = useState<Task[]>(() => {
         const saved = localStorage.getItem('task-tracker');
         return saved ? JSON.parse(saved) : [];
     });
@@ -11,7 +11,7 @@ export const useLocalStorage = () => {
         localStorage.setItem("task-tracker", JSON.stringify(tasks));
     }, [tasks]);
 
-    const add = (task: TaskItem) => {
+    const add = (task: Task) => {
         const updated = [...tasks, task];
         setTasks(updated);
     }

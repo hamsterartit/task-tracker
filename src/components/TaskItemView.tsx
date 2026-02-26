@@ -1,83 +1,78 @@
 import {Edit2, Save, Trash2} from "lucide-react";
 import {Button} from "./Button";
-import type {TaskItem} from "../utils/types";
-import {useState} from "react";
+import type {Task} from "../utils/types";
+import {formatDate} from "../utils/formatDate";
 
 interface TaskItemViewProps {
-    task: TaskItem;
-    removeTask: (id: string) => void;
-    updateTask: (id: string, description: string) => void;
-    toggleTask: (id: string) => void;
+    task: Task;
+    isEdit: boolean;
+    value: string;
+    onValueChange: (val: string) => void;
+    onToggleEdit: () => void;
+    onSave: () => void;
+    onRemove: () => void;
+    onToggleComplete: () => void;
 }
 
-export const TaskItemView = ({task, removeTask, updateTask, toggleTask}: TaskItemViewProps) => {
+export const TaskItemView = (props: TaskItemViewProps) => {
 
-    const {description, priority, date, id, completed} = task;
+    const {
+        task, isEdit, value, onValueChange,
+        onToggleEdit, onSave, onRemove, onToggleComplete
+    } = props;
 
-    const rawDate = new Date(date);
-    const formattedDate = rawDate.toLocaleDateString();
-
-    const [value, setValue] = useState(description);
-    const [isEdit, setIsEdit] = useState(false);
-
-    const handleUpdate = () => {
-        updateTask(id, value);
-        setIsEdit(false)
-    }
+    const formattedDate = formatDate(task.date);
 
     return (
+        <div className={`group flex items-center gap-4 p-4 rounded-xl border bg-white dark:bg-slate-900 transition-all
+             ${task.completed ? 'border-slate-100 dark:border-slate-800 opacity-75' : 'border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md'}`}>
 
-        <div
-            className={`group flex items-center gap-4 p-4 rounded-xl border bg-white dark:bg-slate-900 transition-all
-             ${completed ?  'border-slate-100 dark:border-slate-800 opacity-75' : 'border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md'}`}>
-            <input type="checkbox" name="tasks" checked={completed} onChange={() => toggleTask(id)}/>
+            <input
+                type="checkbox"
+                checked={task.completed}
+                onChange={onToggleComplete}
+            />
 
-            <div className="flex-grow min-w-0">
-
-                <div className="flex flex-col">
-                    {isEdit && (
-                        <input
-                            autoFocus
-                            type="text"
-                            className="w-full bg-transparent text-slate-900 dark:text-slate-100 focus:outline-none border-b border-indigo-500 py-0.5"
-                            value={value}
-                            onChange={(e) => {
-                                setValue(e.target.value)
-                            }}
-                        />
-                    )}
-                    {!isEdit && (
-                        <span className={`text-base truncate transition-all ${
-                            completed ? 'text-slate-400 line-through' : 'text-slate-700 dark:text-slate-200 font-medium'
-                        }`}>{description}</span>
-                    )}
-                    <div className="flex items-center gap-2 mt-1">
-                            <span
-                                className='text-[10px] px-1.5 py-0.5 rounded-md border font-semibold uppercase tracking-wider'>{priority}</span>
-                        <span
-                            className="text-[10px] text-slate-400 dark:text-slate-500">created at {formattedDate}</span>
-                    </div>
+            <div className="flex-1 min-w-0">
+                {isEdit ? (
+                    <input
+                        autoFocus
+                        type="text"
+                        className="w-full bg-transparent text-slate-900 dark:text-slate-100 focus:outline-none border-b border-indigo-500 py-0.5"
+                        value={value}
+                        onChange={(e) => onValueChange(e.target.value)}
+                    />
+                ) : (
+                    <span
+                        className={`block truncate ${task.completed ? 'line-through text-slate-400' : 'text-slate-700 dark:text-slate-200'}`}>
+                        {task.description}
+                    </span>
+                )}
+                <div className="flex items-center gap-2 mt-1">
+                    <span
+                        className='text-[10px] px-1.5 py-0.5 rounded-md border font-semibold uppercase tracking-wider'>
+                        {task.priority}
+                    </span>
+                    <span className="text-[10px] text-slate-400 dark:text-slate-500">
+                        created at {formattedDate}
+                    </span>
                 </div>
             </div>
 
             <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                {isEdit && (
-                    <Button variant="ghost" size="sm" className="text-emerald-500 hover:text-emerald-600"
-                            onClick={handleUpdate}>
+                {isEdit ? (
+                    <Button variant="ghost" size="sm" className="text-emerald-500" onClick={onSave}>
                         <Save size={18}/>
                     </Button>
-                )}
-                {!isEdit && (
-                    <Button variant="ghost" size="sm" className="text-slate-400 hover:text-indigo-500"
-                            onClick={() => setIsEdit(true)}>
+                ) : (
+                    <Button variant="ghost" size="sm" className="text-slate-400" onClick={onToggleEdit}>
                         <Edit2 size={18}/>
                     </Button>
                 )}
-                <Button variant="ghost" size="sm" className="text-slate-400 hover:text-rose-500"
-                        onClick={() => removeTask(task.id)}>
+                <Button variant="ghost" size="sm" className="text-slate-400 hover:text-rose-500" onClick={onRemove}>
                     <Trash2 size={18}/>
                 </Button>
             </div>
         </div>
-    )
-}
+    );
+};

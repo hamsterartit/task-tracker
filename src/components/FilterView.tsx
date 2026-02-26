@@ -9,7 +9,7 @@ interface FilterFormProps {
     filterValue: Filter;
 }
 
-export const FilterForm = ({onSearchChange, onFilterChange,onSortChange, filterValue}: FilterFormProps) => {
+export const FilterView = ({onSearchChange, onFilterChange,onSortChange, filterValue}: FilterFormProps) => {
     return (
         <div className="space-y-4 mb-6">
             <div className="relative">

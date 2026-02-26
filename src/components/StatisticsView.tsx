@@ -1,9 +1,9 @@
 import {STATISTICS_LIST} from "../utils/constants";
-import type {TaskItem} from "../utils/types";
+import type {Task} from "../utils/types";
 
 
 interface StatisticsViewProps {
-    tasks: TaskItem[];
+    tasks: Task[];
 }
 
 
