@@ -27,3 +27,10 @@ export interface StatisticsOption {
     color: string;
     type: Statistics;
 }
+
+export type Filter = 'all' | 'active' | 'completed';
+
+export interface FilterOption {
+    label: string;
+    value: Filter;
+}

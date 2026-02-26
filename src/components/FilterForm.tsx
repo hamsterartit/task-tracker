@@ -1,10 +1,13 @@
 import {Search} from "lucide-react";
+import {FILTERS_LIST} from "../utils/constants.ts";
+import type {Filter} from "../utils/types.ts";
 
 interface FilterFormProps {
     onSearch: (value: string) => void;
+    onFilterChange: (value: Filter) => void;
 }
 
-export const FilterForm = ({onSearch}: FilterFormProps) => {
+export const FilterForm = ({onSearch, onFilterChange}: FilterFormProps) => {
     return (
         <div className="space-y-4 mb-6">
             <div className="relative">
@@ -18,13 +21,15 @@ export const FilterForm = ({onSearch}: FilterFormProps) => {
             </div>
             <div
                 className="flex flex-col sm:flex-row items-center justify-between gap-4 py-4 border-b border-slate-100 dark:border-slate-800">
-                <div className="flex p-1 bg-slate-100 dark:bg-slate-800 rounded-lg">
-                    <button
-
-                        className='px-4 py-1.5 text-sm font-medium rounded-md transition-all'
-                    >
-                        test
-                    </button>
+                <div className="flex gap-4">
+                    {FILTERS_LIST.map((item) => (
+                        <label key={item.value} htmlFor={item.value} className="flex items-center gap-1">
+                            <input type="radio" value={item.value} id={item.value} name="filter"
+                                    onChange={() => onFilterChange(item.value)}
+                            />
+                            <span>{item.label}</span>
+                        </label>
+                    ))}
                 </div>
 
                 <div className="flex items-center gap-2">

@@ -7,17 +7,21 @@ import {TaskList} from "./components/TaskList.tsx";
 import {EmptyView} from "./components/EmptyView.tsx";
 import {FilterForm} from "./components/FilterForm.tsx";
 import {useMemo, useState} from "react";
+import type {Filter} from "./utils/types.ts";
 
 export default function App() {
     const {tasks, add, remove, update} = useLocalStorage();
     const hasTasks = tasks.length > 0;
     const [searchQuery, setSearchQuery] = useState("");
+    const [filter, setFilter] = useState<Filter>("all");
 
     const filteredTasks = useMemo(() => {
         return tasks.filter(task => {
-            return task.description.toLowerCase().includes(searchQuery.toLowerCase());
+            const matchSearch = task.description.toLowerCase().includes(searchQuery.toLowerCase());
+            const matchFilter = filter === 'all' ? true : filter === 'completed' ? task.completed : !task.completed;
+            return matchFilter && matchSearch;
         })
-    }, [tasks, searchQuery]);
+    }, [tasks, searchQuery, filter]);
 
 
 
@@ -54,7 +58,7 @@ export default function App() {
 
                 {hasTasks && (
                     <>
-                        <FilterForm onSearch={setSearchQuery}/>
+                        <FilterForm onSearch={setSearchQuery} onFilterChange={setFilter}/>
 
                         <TaskList tasks={filteredTasks} remove={remove} update={update}/>
                     </>
