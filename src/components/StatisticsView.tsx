@@ -1,5 +1,5 @@
-import {STATISTICS_LIST} from "../utils/constants.ts";
-import type {TaskItem} from "../utils/types.ts";
+import {STATISTICS_LIST} from "../utils/constants";
+import type {TaskItem} from "../utils/types";
 
 
 interface StatisticsViewProps {

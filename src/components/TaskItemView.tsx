@@ -1,6 +1,6 @@
 import {Edit2, Save, Trash2} from "lucide-react";
-import {Button} from "./Button.tsx";
-import type {TaskItem} from "../utils/types.ts";
+import {Button} from "./Button";
+import type {TaskItem} from "../utils/types";
 import {useState} from "react";
 
 interface TaskItemViewProps {

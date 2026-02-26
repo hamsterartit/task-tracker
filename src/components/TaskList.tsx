@@ -1,5 +1,5 @@
-import type {TaskItem} from "../utils/types.ts";
-import {TaskItemView} from "./TaskItemView.tsx";
+import type {TaskItem} from "../utils/types";
+import {TaskItemView} from "./TaskItemView";
 
 interface TaskListProps {
     tasks: TaskItem[];

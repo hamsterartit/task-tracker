@@ -1,9 +1,9 @@
-import {Input} from "./Input.tsx";
-import {Button} from "./Button.tsx";
+import {Input} from "./Input";
+import {Button} from "./Button";
 import {Plus} from "lucide-react";
 import {type BaseSyntheticEvent} from "react";
-import {PRIORITY_LIST} from "../utils/constants.ts";
-import type {Priority} from "../utils/types.ts";
+import {PRIORITY_LIST} from "../utils/constants";
+import type {Priority} from "../utils/types";
 
 interface AddTaskViewProps {
     onSubmit: (event: BaseSyntheticEvent<SubmitEvent>) => void;

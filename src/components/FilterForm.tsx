@@ -1,6 +1,6 @@
 import {Search} from "lucide-react";
-import {FILTERS_LIST, SORT_LIST} from "../utils/constants.ts";
-import type {Filter, Sort} from "../utils/types.ts";
+import {FILTERS_LIST, SORT_LIST} from "../utils/constants";
+import type {Filter, Sort} from "../utils/types";
 
 interface FilterFormProps {
     onSearchChange: (value: string) => void;

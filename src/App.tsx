@@ -1,18 +1,17 @@
 import { LayoutList, Moon, Sun} from 'lucide-react';
 import {Button} from './components/Button';
-import {AddTaskForm} from "./components/AddTaskForm.tsx";
-import {StatisticsView} from "./components/StatisticsView.tsx";
-import {useLocalStorage} from "./utils/useLocalStorage.ts";
-import {TaskList} from "./components/TaskList.tsx";
-import {EmptyView} from "./components/EmptyView.tsx";
-import {FilterForm} from "./components/FilterForm.tsx";
+import {AddTaskForm} from "./components/AddTaskForm";
+import {StatisticsView} from "./components/StatisticsView";
+import {useLocalStorage} from "./utils/useLocalStorage";
+import {TaskList} from "./components/TaskList";
+import {EmptyView} from "./components/EmptyView";
+import {FilterForm} from "./components/FilterForm";
 import {useMemo, useState} from "react";
-import type {Filter,  Sort} from "./utils/types.ts";
-import { PRIORITY_ORDER} from "./utils/constants.ts";
+import type {Filter, Sort} from "./utils/types";
+import { PRIORITY_ORDER} from "./utils/constants";
 
 export default function App() {
     const {tasks, add, remove, update, toggle} = useLocalStorage();
-    const hasTasks = tasks.length > 0;
     const [searchQuery, setSearchQuery] = useState("");
     const [filter, setFilter] = useState<Filter>("all");
     const [sort, setSort] = useState<Sort>("newest");
@@ -38,12 +37,9 @@ export default function App() {
         }
     }, [tasks, searchQuery, filter, sort]);
 
-
-
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300 font-sans">
             <div className="max-w-3xl mx-auto px-4 py-12">
-                {/* Header */}
                 <header className="flex items-center justify-between mb-12">
                     <div className="flex items-center gap-3">
                         <div
@@ -65,13 +61,11 @@ export default function App() {
                     </Button>
                 </header>
 
-                {/* Stats Grid */}
                 <StatisticsView tasks={tasks}/>
 
-                {/* Add Task Form */}
                 <AddTaskForm addTask={add}/>
 
-                {hasTasks && (
+                {filteredTasks.length > 0 && (
                     <>
                         <FilterForm onSearchChange={setSearchQuery} onFilterChange={setFilter} filterValue={filter} onSortChange={setSort}/>
 
@@ -81,7 +75,7 @@ export default function App() {
                 )}
 
 
-                {!hasTasks && (
+                {filteredTasks.length === 0 && (
                     <EmptyView/>
                 )}
             </div>

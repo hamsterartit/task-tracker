@@ -1,4 +1,4 @@
-import type {FilterOption, Priority, PriorityOption, SortOption, StatisticsOption} from "./types.ts";
+import type {FilterOption, Priority, PriorityOption, SortOption, StatisticsOption} from "./types";
 import {CheckCircle2, Circle, LayoutList} from "lucide-react";
 
 export const PRIORITY_LIST: PriorityOption[] = [
