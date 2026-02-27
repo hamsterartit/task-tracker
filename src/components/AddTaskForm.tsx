@@ -24,6 +24,7 @@ export const AddTaskForm = ({addTask}: AddTaskFormProps) => {
         addTask(task);
 
         setInputValue("");
+        setPriorityValue('low')
     }
 
 
