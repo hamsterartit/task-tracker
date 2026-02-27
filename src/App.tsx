@@ -1,5 +1,4 @@
-import {LayoutList, Moon, Sun} from 'lucide-react';
-import {Button} from './components/Button';
+import {LayoutList} from 'lucide-react';
 import {AddTaskForm} from "./components/AddTaskForm";
 import {StatisticsView} from "./components/StatisticsView";
 import {useLocalStorage} from "./utils/useLocalStorage";
@@ -33,13 +32,6 @@ export default function App() {
                                 time.</p>
                         </div>
                     </div>
-                    <Button
-                        variant="ghost"
-                        size="sm"
-                        className="rounded-full w-10 h-10 p-0"
-                    >
-                        <Sun size={20}/>
-                    </Button>
                 </header>
 
                 <StatisticsView tasks={tasks}/>
